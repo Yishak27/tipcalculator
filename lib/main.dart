@@ -30,18 +30,18 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   bool istoggeled = false;
   String amountByPerson = "0";
-  int _counter = 0;
-  double amount = 0.0;
+  int _numberOfPeople = 0;
+  double persentage = 1;
 
   void _increment() {
     setState(() {
-      _counter++;
+      _numberOfPeople++;
     });
   }
 
   void _decrement() {
     setState(() {
-      _counter--;
+      _numberOfPeople--;
     });
   }
 
@@ -118,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             onPressed: _decrement,
                           ),
                           Text(
-                            '$_counter',
+                            '$_numberOfPeople',
                             style: const TextStyle(
                               fontSize: 24,
                               color: Colors.blue,
@@ -134,23 +134,27 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Divider(thickness: 0.4),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     spacing: 10,
                     children: [
                       Text(
                         "Tips",
+                        style: TextStyle(fontSize: 20, color: Colors.blue),
+                      ),
+                      Text(
+                        '${persentage.toStringAsFixed(1)}%',
                         style: TextStyle(fontSize: 16, color: Colors.blue),
                       ),
-                      Text("20.20"),
                     ],
                   ),
+                  Divider(thickness: 0.2),
                   Slider(
-                    min: 0,
+                    min: 1,
                     max: 100,
-                    value: amount,
+                    value: persentage,
                     onChanged: (double newValue) {
                       setState(() {
-                        amount = newValue;
+                        persentage = newValue;
                       });
                     },
                   ),
