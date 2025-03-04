@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   bool istoggeled = false;
   double amountByPerson = 0;
-  int _numberOfPeople = 0;
+  int _numberOfPeople = 1;
   double persentage = 1;
   int amount = 0;
 
@@ -73,6 +73,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(10.0),
+          child: Divider(thickness: 0.2),
+        ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -83,6 +87,11 @@ class _MyHomePageState extends State<MyHomePage> {
               textColor: Colors.white,
               title: Center(child: const Text("Total per person")),
               subtitle: Center(child: Text("$amountByPerson")),
+              leading: Icon(
+                Icons.monetization_on,
+                size: 30.0,
+                color: Colors.white,
+              ),
             ),
           ),
           Card(
@@ -166,6 +175,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     min: 1,
                     max: 100,
                     value: persentage,
+                    thumbColor: Colors.blue,
+                    activeColor: Colors.lightBlue,
                     onChanged: (double newValue) {
                       setState(() {
                         persentage = newValue;
