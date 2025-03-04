@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _decrement() {
     setState(() {
-      _numberOfPeople--;
+      _numberOfPeople <= 1 ? _numberOfPeople = 1 : _numberOfPeople--;
     });
   }
 
@@ -68,6 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     istoggeled = !istoggeled;
                   }),
                 },
+            iconSize: 50,
             icon: Icon(
               istoggeled ? Icons.toggle_on_outlined : Icons.toggle_off_outlined,
             ),
@@ -120,40 +121,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
 
                   Divider(thickness: 0.4),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    spacing: 10,
-                    children: [
-                      Text(
-                        "Splint",
-                        style: (TextStyle(fontSize: 18, color: Colors.blue)),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        spacing: 1,
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.remove, color: Colors.blue),
-                            onPressed: () {
-                              _decrement;
-                              // _calculateTotalTip();
-                            },
-                          ),
-                          Text(
-                            '$_numberOfPeople',
-                            style: const TextStyle(
-                              fontSize: 24,
-                              color: Colors.blue,
-                            ),
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.add, color: Colors.blue),
-                            onPressed: _increment,
-                            // _calculateTotalTip();
-                          ),
-                        ],
-                      ),
-                    ],
+                  TipsWidget(
+                    numberOfPeople: _numberOfPeople,
+                    decrease: _decrement,
+                    increase: _increment,
                   ),
                   Divider(thickness: 0.4),
                   Row(
@@ -190,6 +161,48 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class TipsWidget extends StatelessWidget {
+  const TipsWidget({
+    super.key,
+    required int numberOfPeople,
+    required this.decrease,
+    required this.increase,
+  }) : _numberOfPeople = numberOfPeople;
+
+  final int _numberOfPeople;
+  final VoidCallback decrease;
+  final VoidCallback increase;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      spacing: 10,
+      children: [
+        Text("Splint", style: (TextStyle(fontSize: 18, color: Colors.blue))),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          spacing: 1,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.remove, color: Colors.blue),
+              onPressed: decrease,
+            ),
+            Text(
+              '$_numberOfPeople',
+              style: const TextStyle(fontSize: 24, color: Colors.blue),
+            ),
+            IconButton(
+              icon: const Icon(Icons.add, color: Colors.blue),
+              onPressed: increase,
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
