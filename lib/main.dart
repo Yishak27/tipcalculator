@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,9 +31,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool istoggeled = false;
-  String amountByPerson = "0";
+  double amountByPerson = 0;
   int _numberOfPeople = 0;
   double persentage = 1;
+  int amount = 0;
 
   void _increment() {
     setState(() {
@@ -42,6 +45,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void _decrement() {
     setState(() {
       _numberOfPeople--;
+    });
+  }
+
+  void _calculateTotalTip() {
+    setState(() {
+      amountByPerson = (amount * (persentage / 100)) / _numberOfPeople;
     });
   }
 
@@ -73,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: ListTile(
               textColor: Colors.white,
               title: Center(child: const Text("Total per person")),
-              subtitle: Center(child: Text(amountByPerson)),
+              subtitle: Center(child: Text("$amountByPerson")),
             ),
           ),
           Card(
@@ -95,8 +104,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     onChanged: (value) {
                       setState(() {
-                        amountByPerson = value;
+                        amount = int.parse(value);
                       });
+                      _calculateTotalTip();
                     },
                   ),
 
@@ -115,7 +125,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: [
                           IconButton(
                             icon: const Icon(Icons.remove, color: Colors.blue),
-                            onPressed: _decrement,
+                            onPressed: () {
+                              _decrement;
+                              // _calculateTotalTip();
+                            },
                           ),
                           Text(
                             '$_numberOfPeople',
@@ -127,6 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           IconButton(
                             icon: const Icon(Icons.add, color: Colors.blue),
                             onPressed: _increment,
+                            // _calculateTotalTip();
                           ),
                         ],
                       ),
@@ -156,6 +170,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       setState(() {
                         persentage = newValue;
                       });
+                      _calculateTotalTip();
                     },
                   ),
                 ],
