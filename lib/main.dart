@@ -34,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool istoggeled = false;
   double amountByPerson = 0;
   int _numberOfPeople = 1;
-  double persentage = 1;
+  double persentage = 0.0;
   int amount = 0;
 
   void _increment() {
@@ -144,8 +144,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Divider(thickness: 0.2),
                   Slider(
-                    min: 1,
-                    max: 100,
+                    min: 0.0,
+                    max: 0.5,
+                    label: '${persentage}',
                     value: persentage,
                     thumbColor: Colors.blue,
                     activeColor: Colors.lightBlue,
