@@ -137,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         style: TextStyle(fontSize: 20, color: Colors.blue),
                       ),
                       Text(
-                        '${persentage.toStringAsFixed(1)}%',
+                        '${(persentage * 100).round()}',
                         style: TextStyle(fontSize: 16, color: Colors.blue),
                       ),
                     ],
@@ -146,8 +146,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   Slider(
                     min: 0.0,
                     max: 0.5,
-                    label: '${persentage}',
+                    label: '${(persentage * 100).round()}',
                     value: persentage,
+                    divisions: 5,
                     thumbColor: Colors.blue,
                     activeColor: Colors.lightBlue,
                     onChanged: (double newValue) {
