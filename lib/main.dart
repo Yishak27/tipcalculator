@@ -42,17 +42,19 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _numberOfPeople++;
     });
+    if (_numberOfPeople >= 1) _calculateTotalTip();
   }
 
   void _decrement() {
     setState(() {
       _numberOfPeople <= 1 ? _numberOfPeople = 1 : _numberOfPeople--;
     });
+    if (_numberOfPeople >= 1) _calculateTotalTip();
   }
 
   void _calculateTotalTip() {
     setState(() {
-      amountByPerson = (amount * (persentage / 100)) / _numberOfPeople;
+      amountByPerson = (amount * (persentage)) / _numberOfPeople;
     });
   }
 
@@ -89,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: ListTile(
               textColor: Colors.white,
               title: Center(child: const Text("Total per person")),
-              subtitle: Center(child: Text("$amountByPerson")),
+              subtitle: Center(child: Text(amountByPerson.round().toString())),
               leading: Icon(
                 Icons.monetization_on,
                 size: 30.0,
@@ -113,7 +115,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: <Widget>[
                       TextField(
                         enabled: true,
-                        obscureText: true,
                         decoration: InputDecoration(
                           labelText: "Enter Bill Amount",
                           border: OutlineInputBorder(),
