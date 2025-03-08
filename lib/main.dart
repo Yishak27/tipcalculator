@@ -97,63 +97,70 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
-          Card(
-            color: Colors.white,
-            shadowColor: Colors.amber,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(10.5),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: "Enter Bill Amount",
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.attach_money),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        amount = int.parse(value);
-                      });
-                      _calculateTotalTip();
-                    },
-                  ),
-
-                  Divider(thickness: 0.4),
-                  TipsWidget(
-                    numberOfPeople: _numberOfPeople,
-                    decrease: _decrement,
-                    increase: _increment,
-                  ),
-                  Divider(thickness: 0.4),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 10,
-                    children: [
-                      Text(
-                        "Tips",
-                        style: TextStyle(fontSize: 20, color: Colors.blue),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              child: Card(
+                color: Colors.white,
+                shadowColor: Colors.amber,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.5),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      TextField(
+                        enabled: true,
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          labelText: "Enter Bill Amount",
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(Icons.attach_money),
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            amount = int.parse(value);
+                          });
+                          _calculateTotalTip();
+                        },
                       ),
-                      Text(
-                        '${(persentage * 100).round()}',
-                        style: TextStyle(fontSize: 16, color: Colors.blue),
+
+                      Divider(thickness: 0.4),
+                      TipsWidget(
+                        numberOfPeople: _numberOfPeople,
+                        decrease: _decrement,
+                        increase: _increment,
+                      ),
+                      Divider(thickness: 0.4),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        spacing: 10,
+                        children: [
+                          Text(
+                            "Tips",
+                            style: TextStyle(fontSize: 20, color: Colors.blue),
+                          ),
+                          Text(
+                            '${(persentage * 100).round()}',
+                            style: TextStyle(fontSize: 16, color: Colors.blue),
+                          ),
+                        ],
+                      ),
+                      Divider(thickness: 0.2),
+                      TipSlider(
+                        persentage: persentage,
+                        valueChange: (double value) {
+                          setState(() {
+                            persentage = value;
+                          });
+                          _calculateTotalTip();
+                        },
                       ),
                     ],
                   ),
-                  Divider(thickness: 0.2),
-                  TipSlider(
-                    persentage: persentage,
-                    valueChange: (double value) {
-                      setState(() {
-                        persentage = value;
-                      });
-                      _calculateTotalTip();
-                    },
-                  ),
-                ],
+                ),
               ),
             ),
           ),
