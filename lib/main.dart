@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:tipcalculator/widgets/TipsSlider.dart';
 import 'package:tipcalculator/widgets/TipsWidget.dart';
 
 void main() {
@@ -143,17 +144,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                   Divider(thickness: 0.2),
-                  Slider(
-                    min: 0.0,
-                    max: 0.5,
-                    label: '${(persentage * 100).round()}',
-                    value: persentage,
-                    divisions: 5,
-                    thumbColor: Colors.blue,
-                    activeColor: Colors.lightBlue,
-                    onChanged: (double newValue) {
+                  TipSlider(
+                    persentage: persentage,
+                    valueChange: (double value) {
                       setState(() {
-                        persentage = newValue;
+                        persentage = value;
                       });
                       _calculateTotalTip();
                     },
