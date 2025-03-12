@@ -1,11 +1,18 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tipcalculator/providers/ThemeProvider.dart';
 import 'package:tipcalculator/widgets/TipsSlider.dart';
 import 'package:tipcalculator/widgets/TipsWidget.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (context) => ThemeProvider())],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -14,12 +21,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeProvider>(context);
+
     return MaterialApp(
       title: 'Tip calculator',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
+      // theme: ThemeData(
+      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      // ),
+      theme: theme.getTheme(),
       home: const MyHomePage(),
     );
   }
@@ -60,22 +70,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("Utip"),
         actions: [
           IconButton(
-            onPressed:
-                () => {
-                  setState(() {
-                    istoggeled = !istoggeled;
-                  }),
-                },
-            iconSize: 50,
-            icon: Icon(
-              istoggeled ? Icons.toggle_on_outlined : Icons.toggle_off_outlined,
-            ),
+            onPressed: theme.toggleDarkTheme,
+            // () => {
+            //   setState(() {
+            //     istoggeled = !istoggeled;
+            //   }),
+            // },
+            iconSize: 30,
+
+            icon: Icon(theme.isDarkTheme ? Icons.sunny : Icons.dark_mode),
           ),
         ],
         bottom: PreferredSize(
@@ -103,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               child: Card(
-                color: Colors.white,
+                // color: Colors.white,
                 shadowColor: Colors.amber,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
